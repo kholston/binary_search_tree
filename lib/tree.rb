@@ -35,4 +35,25 @@ class Tree
     result = true if start_node.right_child.value == value
     result
   end
+
+  # Adds a value to tree
+
+  # Deletes a value from the tree
+
+  # Returns node with the given value
+
+  # Traverses the tree in breadth-first level order
+
+  # Traverses the tree in depth-first preorder
+
+  # Traverses the tree in depth-first inorder
+
+  # Traverses the tree in depth-first postorder
+
+  # Returns depth level of node argument
+
+  # Checks if the tree is balanced
+
+  # Rebalances the tree
+
 end
