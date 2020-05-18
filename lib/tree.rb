@@ -40,12 +40,21 @@ class Tree
   def insert(value)
     # if the tree already contains the value return
     return if contains?(value)
+    new_node = Node.new(value)
+    current_node = @root
     # While the next node in the list is not nil
-    # Check if the value is greater than or less than the root
-    # If less send it to the left else send it to the right
-    # Set the root as the previous node
-    # Set the child that it was sent to as the new root until you reach the end
+    until current_node.nil?
+      # Check if the value is greater than or less than the root
+      previous_node = current_node
+      if current_node > new_node
+        # If less send it to the left else send it to the right
+        current_node = previous_node.left_child
+      elsif current_node < new_node
+        current_node = previous_node.right_child
+      end
+    end
     # Check the previous node to see what side to set it
+    previous_node > new_node ? previous_node.left_child = new_node : previous_node.right = new_node
   end
 
   # Deletes a value from the tree
@@ -91,7 +100,7 @@ class Tree
   def level_order
     # create a queue
     node_queue = []
-    backup_array = [] if block_given?
+    backup_array = [] unless block_given?
     # Add root node to the queue
     node_queue << @root
     # until the queue is empty
@@ -111,32 +120,58 @@ class Tree
       node_queue << current_node.left_child
       node_queue << current_node.right_child
     end
-    backup_array if block_given?
+    backup_array unless block_given?
   end
 
   # Traverses the tree in breadth-first level order recursively
-  def level_order
-    
-  end
+  def level_order_rec ;
 
   # Traverses the tree in depth-first preorder
-  def preorder
-    
+  def preorder(root_node)
+    backup_array = [] unless block_given?
+    return if root_node.nil?
+    if block_given?
+      yield root_node
+    else
+      backup_array << root_node
+    end
+    preorder(root_node.left_child)
+    preorder(root_node.right_child)
+    backup_array unless block_given?
   end
 
   # Traverses the tree in depth-first inorder
   def inorder
-
+    backup_array = [] unless block_given?
+    return if root_node.nil?
+    preorder(root_node.left_child)
+    if block_given?
+      yield root_node
+    else
+      backup_array << root_node
+    end
+    preorder(root_node.right_child)
+    backup_array unless block_given?
   end
 
   # Traverses the tree in depth-first postorder
   def postorder
-  
+    backup_array = [] unless block_given?
+    return if root_node.nil?
+    preorder(root_node.left_child)
+    preorder(root_node.right_child)
+    if block_given?
+      yield root_node
+    else
+      backup_array << root_node
+    end
+    backup_array unless block_given?
   end
 
   # Returns depth level of node argument
   def depth(node)
     result = "This node  has  a depth level of "
+    depth_level = 0
     result
   end
 
