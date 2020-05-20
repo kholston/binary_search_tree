@@ -171,7 +171,14 @@ class Tree
   # Returns depth level of node argument
   def depth(node)
     result = "This node  has  a depth level of "
+    return unless contains?
     depth_level = 0
+    current_node = @root
+    until current_node == node
+      node < current_node ? current_node = current_node.left_child : current_node.right_child
+      depth_level += 1
+    end
+    result += depth_level.to_s
     result
   end
 
