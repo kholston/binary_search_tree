@@ -124,7 +124,8 @@ class Tree
   end
 
   # Traverses the tree in breadth-first level order recursively
-  def level_order_rec ;
+  def level_order_rec
+  end
 
   # Traverses the tree in depth-first preorder
   def preorder(root_node)
@@ -183,9 +184,8 @@ class Tree
   end
 
   # Checks if the tree is balanced
-  def balanced?
-    balanced = false
-    balanced
+  def balanced?(node)
+    balanced_height(node) > -1
   end
 
   # Rebalances the tree
@@ -193,4 +193,18 @@ class Tree
 
   end
 
+  private
+
+  def balanced_height(node)
+    return 0 if node.nil?
+
+    left_height = balanced?(node.left_child) 
+    right_height = balanced?(node.right_child)
+
+    return -1 if left_height == -1 || right_height == -1
+    return -1 if (left_height - right_height).abs > 1
+    return left_height + 1 if left_height > right_height
+
+    right_height + 1
+  end
 end
