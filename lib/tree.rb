@@ -79,8 +79,12 @@ class Tree
       end
     end
     # check the previous node to find out which child is the value
+    previous_node.left_child = nil if previous_node.left_child == current_node
+    previous_node.right_child = nil if previous_node.right_child == current_node
     # set that child to nil
     # reinsert the current nodes children unless they equal nil
+    insert(current_node.left_child.value) unless current_node.nil?
+    insert(current_node.right_child.value) unless current_node.nil?
   end
 
   # Returns node with the given value
