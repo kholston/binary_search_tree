@@ -40,6 +40,7 @@ class Tree
   def insert(value)
     # if the tree already contains the value return
     return if contains?(value)
+
     new_node = Node.new(value)
     current_node = @root
     # While the next node in the list is not nil
@@ -190,7 +191,11 @@ class Tree
 
   # Rebalances the tree
   def rebalance!
-
+    tree_array = []
+    level_order{ |node| 
+      tree_array << node
+    }
+    build_tree(tree_array)
   end
 
   private
